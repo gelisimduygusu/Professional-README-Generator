@@ -1,92 +1,84 @@
-// packages required for application
-const inquirer = require("inquirer");
-
 const fs = require("fs");
+const path = require('path');
+const inquirer = require("inquirer");
+const generateMarkdown = require("./utils/generateMarkdown");
 
-const path = require("path");
-
-const generateMarkdown = require("./assets/utils/generateMarkdown");
-
-//  array of questions for user input
+// array of questions for user
 const questions = [
+    // inquirer prompt to ask user for their GitHub username, email, project title, description, 
+    // installation instructions, usage information, contribution guidelines, test instructions, and license
+        {
+            type: "input",
+            message: "What is your GitHub username?",
+            name: "username"
+        },
+        {
+            type: "input",
+            message: "What is your email?",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "What is the title of your project?",
+            name: "title"
+        },
+        {
+            type: "input",
+            message:  "What is the description of your project?",
+            name: "description"
+        },
+        {
+            type: "input",
+            message: "What are the installation instructions?",
+            name: "installation",
+            default: "npm i",
+        },
+        {
+            type: "input",
+            message: "What is the usage information?",
+            name: "usage"
+        },
+        {
+            type: "input",
+            message: "What are the contribution guidelines?",
+            name: "contribution"
+        },
+        {
+            type: "input",
+            message: "What are the test instructions?",
+            name: "test",
+            default: "npm test"
+        },
+        {
+            type: "list",
+            message: "What license would you like to use?",
+            name: "license",
+            choices: ["MIT", "GNU GPLv3", "Apache 2.0", "ISC"]
+        }
+    ];
 
-    {
-        type: "input",
-        name: "github",
-        message: "What's you GitHub username?"
-    },
-
-    {
-        type: "input",
-        name: "email",
-        message: "What's your email?"
-    },
-
-    {
-        type: "input",
-        name: "title",
-        message: "What's the name of your project?"
-    },
-
-    {
-        type: "input",
-        name: "description",
-        message: "Provide a brief description of your project:"
-    },
-
-    {
-        type: "input",
-        name: "github",
-        message: "What's you GitHub username?"
-    },
-
-    {
-        type: "list",
-        name: "license",
-        message: "What license does our project have?",
-        choices: ["MIT", "APACHE2.0", "Boost1.0", "GLP3.0", "BSD2", "BSD3", "None"]
-    },
-
-    {
-        type: "input",
-        name: "dependencies",
-        message: "Any dependencies to install?",
-        default: "npm i"
-    },
-
-    {
-        type: "input",
-        name: "test",
-        message: "What command should be run to run tests?",
-        default: "npm test"
-    },
-
-    {
-        type: "input",
-        name: "usage",
-        message: "What is the proper usage of this repo?"
-    },
-
-    {
-        type: "input",
-        name: "contributors",
-        message: "Who are the contributors of this repo?"
-    }
-];
-
-// function to write read me file
+// function to write README file
 function writeToFile(fileName, data) {
-    return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+    // write the file to the current working directory
+    fs.writeFile(fileName, data, (err) =>
+    // if there is an error, log the error, else log that the file was generated
+        err ? console.log(err) : console.log('READ.ME Generated!')
+    );
 }
 
-// function to initialize app
+// function to initialize program
 function init() {
-    inquirer.prompt(questions)
-    .then((inquirerAnswers) => {
-        console.log("Generating.... Please wait....");
-        writeToFile("./assets/utils/sampleREADME.md", generateMarkdown({ ...inquirerAnswers }));
-    })
+    inquirer
+    // use inquirer to prompt the user with the questions array
+        .prompt(questions)
+        // then use the data from the user to generate the markdown
+        .then((data) => {
+            // use path to get the current working directory and join it with the file name
+            const filename = path.join(process.cwd(), "README-generated.md");
+            // call the writeToFile function with the filename and the generated markdown
+            writeToFile(filename, generateMarkdown(data))
+        });
 }
 
-// function call to initialize app
+// function call to initialize program
 init();
