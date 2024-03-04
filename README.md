@@ -41,6 +41,8 @@ After answering all the prompts, the generated README file will be saved in the 
 
 ### Video
 
+ https://www.canva.com/design/DAF-jYuEitg/pd0Wk50tdq2TPsGB8gLfwg/watch?utm_content=DAF-jYuEitg&utm_campaign=designshare&utm_medium=link&utm_source=editor
+
 ### Contributing
 Contributions are welcome! If you have any ideas, suggestions, or bug fixes, please open an issue or submit a pull request.
 
