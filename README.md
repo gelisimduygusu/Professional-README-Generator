@@ -39,11 +39,11 @@ Once installed, you can run the application using Node.js. Follow the prompts to
 
 After answering all the prompts, the generated README file will be saved in the output/ directory.
 
-## Video
+### Video
 
-## Contributing
+### Contributing
 Contributions are welcome! If you have any ideas, suggestions, or bug fixes, please open an issue or submit a pull request.
 
-## License
+### License
 This project is licensed under the MIT License.
 
