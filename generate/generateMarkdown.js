@@ -1,8 +1,12 @@
 
-//  Generate markdown function
+/**
+ * Generate markdown function
+ * @param {Object} data - The data object containing information for generating the markdown
+ * @returns {string} - The generated markdown content
+ */
 function generateMarkdown(data) {
+  // Generate the markdown content based on the provided data
   return `# ${data.title}  ![GitHub license](https://img.shields.io/badge/license-${data.license}-blue.svg)
- 
   ## Description
   ${data.description}
   ## Table of Contents
@@ -39,5 +43,4 @@ function generateMarkdown(data) {
   This project is licensed under the ${data.license} license
 `;
 }
-
 module.exports = generateMarkdown;
